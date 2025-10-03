@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CreateNoteRequest, Note } from "../types/note";
+import { Category, CreateNoteRequest, Note } from "../types/note";
 
 export interface FetchNotesResponse {
   notes: Note[];
@@ -54,5 +54,10 @@ export const DeleteNote = async (id: string): Promise<Note> => {
 
 export const fetchNoteById = async (id: string): Promise<Note> => {
   const response = await axios.get<Note>(`/notes/${id}`, authConfig);
+  return response.data;
+};
+
+export const getCategories = async () => {
+  const response = await axios.get<Category[]>(`/categories`, authConfig);
   return response.data;
 };
