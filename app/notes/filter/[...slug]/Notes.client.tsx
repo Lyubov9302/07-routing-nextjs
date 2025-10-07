@@ -11,7 +11,11 @@ import { useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import css from "./page.module.css";
 
-export default function NotesClient() {
+interface NotesClientProps {
+  tag?: string;
+}
+
+export default function NotesClient({ tag }: NotesClientProps) {
   const [searchValue, setSearchValue] = useState("");
   const [page, setPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,8 +26,8 @@ export default function NotesClient() {
   }, 500);
 
   const { data, isSuccess } = useQuery({
-    queryKey: ["notes", searchValue, page],
-    queryFn: () => FetchNotes(searchValue, page),
+    queryKey: ["notes", searchValue, page, tag],
+    queryFn: () => FetchNotes(searchValue, page, tag),
     placeholderData: keepPreviousData,
   });
 
