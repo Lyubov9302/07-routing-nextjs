@@ -1,27 +1,49 @@
-import { getCategories } from "@/lib/api";
+"use client";
+
 import css from "./TagsMenu.module.css";
 import Link from "next/link";
+import { useState } from "react";
 
-const TagsMenu = async () => {
-  const categories = await getCategories();
+const tags = ["Todo", "Work", "Personal", "Meeting", "Shopping"];
+
+const TagsMenu = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => setIsOpen(!isOpen);
+
   return (
     <div className={css.menuContainer}>
-      <button className={css.menuButton}>Notes ▾</button>
-      <ul className={css.menuList}>
-        {categories.map((category) => (
-          <li key={category.id}>
-            <Link href={`/notes/filter/${category.id}`}>{category.name}</Link>
+      <button
+        onClick={toggle}
+        className={css.menuButton}
+      >
+        Notes ▾
+      </button>
+      {isOpen && (
+        <ul className={css.menuList}>
+          <li className={css.menuItem}>
+            <Link
+              href={`/notes/filter/all`}
+              onClick={toggle}
+            >
+              All notes
+            </Link>
           </li>
-        ))}
-        <li className={css.menuItem}>
-          <a
-            href={`url до сторінки за відповідним тегом`}
-            className={css.menuLink}
-          >
-            Назва тегу
-          </a>
-        </li>
-      </ul>
+          {tags.map((tag) => (
+            <li
+              className={css.menuItem}
+              key={tag}
+            >
+              <Link
+                href={`/notes/filter/${tag}`}
+                onClick={toggle}
+                className={css.menuLink}
+              >
+                {tag}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };

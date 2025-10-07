@@ -1,8 +1,9 @@
 import Link from "next/link";
 import css from "./Header.module.css";
 import TagsMenu from "../TagsMenu/TagsMenu";
+import { FetchNotes } from "@/lib/api";
 
-export default function Header() {
+const Header = async () => {
   return (
     <header className={css.header}>
       <Link
@@ -23,4 +24,6 @@ export default function Header() {
       </nav>
     </header>
   );
-}
+};
+
+export default Header;

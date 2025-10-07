@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Category, CreateNoteRequest, Note } from "../types/note";
+import { CreateNoteRequest, Note } from "../types/note";
 
 export interface FetchNotesResponse {
   notes: Note[];
@@ -11,6 +11,7 @@ interface Options {
     search: string;
     page: number;
     perPage: number;
+    tag?: string;
   };
   headers: {
     Authorization: string;
@@ -28,16 +29,23 @@ axios.defaults.baseURL = "https://notehub-public.goit.study/api";
 
 export const FetchNotes = async (
   searchWord: string,
-  page: number
+  page: number,
+  tag?: string
 ): Promise<FetchNotesResponse> => {
+  const baseParams = {
+    search: searchWord,
+    page: page,
+    perPage: 12,
+  };
+
+  const params =
+    tag && tag !== "All notes" ? { ...baseParams, tag } : baseParams;
+
   const options: Options = {
     ...authConfig,
-    params: {
-      search: searchWord,
-      page: page,
-      perPage: 12,
-    },
+    params,
   };
+
   const response = await axios.get<FetchNotesResponse>("/notes", options);
   return response.data;
 };
@@ -52,12 +60,7 @@ export const DeleteNote = async (id: string): Promise<Note> => {
   return response.data;
 };
 
-export const fetchNoteById = async (id: string): Promise<Note> => {
+export const fetchNoteById = async (id: string) => {
   const response = await axios.get<Note>(`/notes/${id}`, authConfig);
-  return response.data;
-};
-
-export const getCategories = async () => {
-  const response = await axios.get<Category[]>(`/categories`, authConfig);
   return response.data;
 };

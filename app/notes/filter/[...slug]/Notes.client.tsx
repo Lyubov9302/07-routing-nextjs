@@ -1,15 +1,15 @@
 "use client";
 
-import css from "./page.module.css";
-import { useState } from "react";
-import NoteList from "../../components/NoteList/NoteList";
-import { FetchNotes } from "../../lib/api";
+import Modal from "@/components/Modal/Modal";
+import NoteForm from "@/components/NoteForm/NoteForm";
+import NoteList from "@/components/NoteList/NoteList";
+import Pagination from "@/components/Pagination/Pagination";
+import SearchBox from "@/components/SearchBox/SearchBox";
+import { FetchNotes } from "@/lib/api";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import Pagination from "../../components/Pagination/Pagination";
+import { useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
-import Modal from "../../components/Modal/Modal";
-import NoteForm from "../../components/NoteForm/NoteForm";
-import SearchBox from "../../components/SearchBox/SearchBox";
+import css from "./page.module.css";
 
 export default function NotesClient() {
   const [searchValue, setSearchValue] = useState("");

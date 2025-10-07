@@ -1,5 +1,3 @@
-import { string } from "yup";
-
 export type Tag = "Todo" | "Work" | "Personal" | "Meeting" | "Shopping";
 
 export interface Note {
@@ -15,12 +13,4 @@ export interface CreateNoteRequest {
   title: string;
   content: string;
   tag: Tag;
-}
-
-export interface Category {
-  id: string;
-  name: string;
-  description: string;
-  createdAt: string;
-  updatedAt: string;
 }
