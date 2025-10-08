@@ -1,7 +1,6 @@
 import Link from "next/link";
 import css from "./Header.module.css";
 import TagsMenu from "../TagsMenu/TagsMenu";
-import { FetchNotes } from "@/lib/api";
 
 const Header = async () => {
   return (

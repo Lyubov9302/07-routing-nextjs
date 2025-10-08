@@ -12,7 +12,7 @@ import { useDebouncedCallback } from "use-debounce";
 import css from "./page.module.css";
 
 interface NotesClientProps {
-  category?: string;
+  category?: string | undefined;
 }
 
 export default function NotesClient({ category }: NotesClientProps) {
