@@ -8,7 +8,7 @@ export interface FetchNotesResponse {
 
 interface Options {
   params?: {
-    search: string;
+    search?: string;
     page: number;
     perPage: number;
     tag?: string;
@@ -30,20 +30,22 @@ axios.defaults.baseURL = "https://notehub-public.goit.study/api";
 export const FetchNotes = async (
   searchWord: string,
   page: number,
-  tag?: string
+  tag: string | undefined
 ): Promise<FetchNotesResponse> => {
   const baseParams = {
-    search: searchWord,
     page: page,
     perPage: 12,
   };
 
-  const params =
-    tag && tag !== "All notes" ? { ...baseParams, tag } : baseParams;
+  const tagParam = tag && tag.toLowerCase() !== "all" ? { tag } : {};
 
   const options: Options = {
     ...authConfig,
-    params,
+    params: {
+      ...baseParams,
+      ...tagParam,
+      search: searchWord || undefined,
+    },
   };
 
   const response = await axios.get<FetchNotesResponse>("/notes", options);
