@@ -12,10 +12,10 @@ import { useDebouncedCallback } from "use-debounce";
 import css from "./page.module.css";
 
 interface NotesClientProps {
-  categ?: string;
+  category?: string;
 }
 
-export default function NotesClient({ categ }: NotesClientProps) {
+export default function NotesClient({ category }: NotesClientProps) {
   const [searchValue, setSearchValue] = useState("");
   const [page, setPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,8 +26,8 @@ export default function NotesClient({ categ }: NotesClientProps) {
   }, 500);
 
   const { data, isSuccess } = useQuery({
-    queryKey: ["notes", searchValue, page, categ],
-    queryFn: () => FetchNotes(searchValue, page, categ),
+    queryKey: ["notes", searchValue, page, category],
+    queryFn: () => FetchNotes(searchValue, page, category),
     placeholderData: keepPreviousData,
   });
 
